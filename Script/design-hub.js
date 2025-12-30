@@ -1,16 +1,51 @@
-// ============ TOOL SECTION TOGGLE ============
-document.querySelectorAll(".hub-card").forEach(card => {
+// ============ MODAL FUNCTIONS ============
+window.openToolModal = function(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+};
+
+window.closeToolModal = function(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove("active");
+        document.body.style.overflow = "auto";
+    }
+};
+
+// ============ HUB CARD CLICK HANDLERS ============
+document.querySelectorAll(".hub-card").forEach((card) => {
     card.addEventListener("click", () => {
         const toolId = card.getAttribute("data-tool");
-        document.querySelectorAll(".tool-section").forEach(sec => sec.classList.remove("active"));
-        document.getElementById(toolId).classList.add("active");
+        const modalId =
+            toolId === "paintCalculator" ?
+            "paintCalculatorModal" :
+            "paletteGeneratorModal";
+        openToolModal(modalId);
     });
 });
 
-document.querySelectorAll(".close-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-        btn.closest(".tool-section").classList.remove("active");
+// Close modals when clicking overlay
+document.querySelectorAll(".modal-overlay").forEach((overlay) => {
+    overlay.addEventListener("click", (e) => {
+        const modal = e.target.closest(".tool-modal");
+        if (modal) {
+            modal.classList.remove("active");
+            document.body.style.overflow = "auto";
+        }
     });
+});
+
+// Close modal with Escape key
+window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+        document.querySelectorAll(".tool-modal.active").forEach((modal) => {
+            modal.classList.remove("active");
+            document.body.style.overflow = "auto";
+        });
+    }
 });
 
 // ============ PAINT CALCULATOR ============
@@ -40,7 +75,7 @@ function hexToRgb(hex) {
     return {
         r: (bigint >> 16) & 255,
         g: (bigint >> 8) & 255,
-        b: bigint & 255
+        b: bigint & 255,
     };
 }
 
@@ -51,7 +86,9 @@ function hexToHsl(hex) {
         b1 = b / 255;
     const max = Math.max(r1, g1, b1),
         min = Math.min(r1, g1, b1);
-    let h, s, l = (max + min) / 2;
+    let h,
+        s,
+        l = (max + min) / 2;
 
     if (max === min) {
         h = s = 0;
@@ -74,7 +111,7 @@ function hexToHsl(hex) {
     return {
         h: Math.round(h * 360),
         s: Math.round(s * 100),
-        l: Math.round(l * 100)
+        l: Math.round(l * 100),
     };
 }
 
@@ -100,7 +137,7 @@ function hslToHex(h, s, l) {
         g = hue2rgb(p, q, h);
         b = hue2rgb(p, q, h - 1 / 3);
     }
-    const toHex = x => {
+    const toHex = (x) => {
         const hex = Math.round(x * 255).toString(16);
         return hex.length === 1 ? "0" + hex : hex;
     };
@@ -115,29 +152,56 @@ function generatePalette(baseColor, scheme) {
     switch (scheme) {
         case "complementary":
             colors.push({ name: "Base", hex: baseColor });
-            colors.push({ name: "Complement", hex: hslToHex((hsl.h + 180) % 360, hsl.s, hsl.l) });
+            colors.push({
+                name: "Complement",
+                hex: hslToHex((hsl.h + 180) % 360, hsl.s, hsl.l),
+            });
             break;
         case "analogous":
-            colors.push({ name: "Left", hex: hslToHex((hsl.h - 30 + 360) % 360, hsl.s, hsl.l) });
+            colors.push({
+                name: "Left",
+                hex: hslToHex((hsl.h - 30 + 360) % 360, hsl.s, hsl.l),
+            });
             colors.push({ name: "Base", hex: baseColor });
-            colors.push({ name: "Right", hex: hslToHex((hsl.h + 30) % 360, hsl.s, hsl.l) });
+            colors.push({
+                name: "Right",
+                hex: hslToHex((hsl.h + 30) % 360, hsl.s, hsl.l),
+            });
             break;
         case "triadic":
             colors.push({ name: "Base", hex: baseColor });
-            colors.push({ name: "Triadic 1", hex: hslToHex((hsl.h + 120) % 360, hsl.s, hsl.l) });
-            colors.push({ name: "Triadic 2", hex: hslToHex((hsl.h + 240) % 360, hsl.s, hsl.l) });
+            colors.push({
+                name: "Triadic 1",
+                hex: hslToHex((hsl.h + 120) % 360, hsl.s, hsl.l),
+            });
+            colors.push({
+                name: "Triadic 2",
+                hex: hslToHex((hsl.h + 240) % 360, hsl.s, hsl.l),
+            });
             break;
         case "monochrome":
             for (let i = 0; i < 5; i++) {
                 const lightness = 90 - i * 20;
-                colors.push({ name: `Shade ${i + 1}`, hex: hslToHex(hsl.h, hsl.s, lightness) });
+                colors.push({
+                    name: `Shade ${i + 1}`,
+                    hex: hslToHex(hsl.h, hsl.s, lightness),
+                });
             }
             break;
         case "tetradic":
             colors.push({ name: "Base", hex: baseColor });
-            colors.push({ name: "Complement", hex: hslToHex((hsl.h + 180) % 360, hsl.s, hsl.l) });
-            colors.push({ name: "Split 1", hex: hslToHex((hsl.h + 60) % 360, hsl.s, hsl.l) });
-            colors.push({ name: "Split 2", hex: hslToHex((hsl.h + 240) % 360, hsl.s, hsl.l) });
+            colors.push({
+                name: "Complement",
+                hex: hslToHex((hsl.h + 180) % 360, hsl.s, hsl.l),
+            });
+            colors.push({
+                name: "Split 1",
+                hex: hslToHex((hsl.h + 60) % 360, hsl.s, hsl.l),
+            });
+            colors.push({
+                name: "Split 2",
+                hex: hslToHex((hsl.h + 240) % 360, hsl.s, hsl.l),
+            });
             break;
     }
     displayPalette(colors);
@@ -146,7 +210,7 @@ function generatePalette(baseColor, scheme) {
 function displayPalette(colors) {
     const display = document.getElementById("paletteDisplay");
     display.innerHTML = "";
-    colors.forEach(color => {
+    colors.forEach((color) => {
         const rgb = hexToRgb(color.hex);
         const card = document.createElement("div");
         card.className = "palette-color-card";
@@ -174,7 +238,7 @@ function showCopyNotification() {
 // ============ EXPORT PALETTE ============
 document.getElementById("exportPaletteBtn").addEventListener("click", () => {
     const colors = [];
-    document.querySelectorAll(".palette-color-card").forEach(card => {
+    document.querySelectorAll(".palette-color-card").forEach((card) => {
         const name = card.querySelector(".palette-color-name").textContent;
         const hex = card.querySelector(".palette-color-hex").textContent;
         colors.push(`${name}: ${hex}`);
@@ -195,9 +259,11 @@ document.getElementById("exportPaletteBtn").addEventListener("click", () => {
 });
 
 // ============ EVENT LISTENERS ============
-document.querySelectorAll(".palette-scheme-btn").forEach(btn => {
+document.querySelectorAll(".palette-scheme-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
-        document.querySelectorAll(".palette-scheme-btn").forEach(b => b.classList.remove("active"));
+        document
+            .querySelectorAll(".palette-scheme-btn")
+            .forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
         currentScheme = btn.dataset.scheme;
         const baseColor = document.getElementById("paletteBaseColor").value;
@@ -206,10 +272,13 @@ document.querySelectorAll(".palette-scheme-btn").forEach(btn => {
     });
 });
 
-document.getElementById("paletteBaseColor").addEventListener("input", e => {
+document.getElementById("paletteBaseColor").addEventListener("input", (e) => {
     document.getElementById("paletteBaseHex").textContent = e.target.value;
     generatePalette(e.target.value, currentScheme);
 });
 
 // ============ INITIALIZE ============
-generatePalette(document.getElementById("paletteBaseColor").value, currentScheme);
+generatePalette(
+    document.getElementById("paletteBaseColor").value,
+    currentScheme
+);
