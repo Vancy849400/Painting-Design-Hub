@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive design tools including paint calculator and color palette generator.">
+    <title>Design Hub</title>
+    <link rel="stylesheet" href="../Style/style.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav id="navbar" class="scrolled">
+        <div class="nav-container">
+            <div class="logo">🎨 Vancy Painter</div>
+            <a href="index.html" class="nav-back-link">← Back</a>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <section class="hero design-hub-hero">
+            <div class="hero-content">
+                <h1>Interactive <span>Design Hub</span></h1>
+                <p class="hero-description">Explore transformations and plan your perfect paint project</p>
+            </div>
+        </section>
+
+        <div class="hub-container">
+            <div class="hub-grid" id="hubGrid">
+                <div class="hub-card" data-tool="paintCalculator">
+                    <div class="hub-icon">📐</div>
+                    <h3>Paint Calculator</h3>
+                    <p>Calculate exactly how much paint you need for your project</p>
+                </div>
+                <div class="hub-card" data-tool="paletteGenerator">
+                    <div class="hub-icon">🎨</div>
+                    <h3>Palette Generator</h3>
+                    <p>Create harmonious color palettes with complementary and analogous schemes</p>
+                </div>
+            </div>
+
+            <!-- Paint Calculator -->
+            <div id="paintCalculator" class="tool-section">
+                <div class="tool-header">
+                    <h2>📐 Paint Calculator</h2>
+                    <button class="close-btn">✕</button>
+                </div>
+                <div class="calculator-grid">
+                    <div class="calc-input-group">
+                        <h3>Room Dimensions</h3>
+                        <div class="input-row">
+                            <label>Length (meters)</label>
+                            <input type="number" id="roomLength" placeholder="5" min="0" step="0.1">
+                        </div>
+                        <div class="input-row">
+                            <label>Width (meters)</label>
+                            <input type="number" id="roomWidth" placeholder="4" min="0" step="0.1">
+                        </div>
+                        <div class="input-row">
+                            <label>Height (meters)</label>
+                            <input type="number" id="roomHeight" placeholder="3" min="0" step="0.1">
+                        </div>
+                        <div class="input-row">
+                            <label>Number of Coats</label>
+                            <input type="number" id="coats" value="2" min="1" max="5">
+                        </div>
+                        <button class="calc-button" id="calculateBtn">Calculate</button>
+                    </div>
+
+                    <div class="calc-results">
+                        <h3>Results</h3>
+                        <div class="result-item">
+                            <span>Total Wall Area</span>
+                            <span id="wallArea">0 m²</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Paint Needed</span>
+                            <span id="paintNeeded">0 liters</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Estimated Cost</span>
+                            <span id="estimatedCost">ZMW 0</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Project Duration</span>
+                            <span id="duration">0 days</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Palette Generator -->
+            <div id="paletteGenerator" class="tool-section">
+                <div class="tool-header">
+                    <h2>🎨 Palette Generator</h2>
+                    <button class="close-btn">✕</button>
+                </div>
+                <div class="palette-controls">
+                    <div class="palette-base-color">
+                        <input type="color" id="paletteBaseColor" value="#10b981">
+                        <div class="palette-base-info">
+                            <h3>Base Color</h3>
+                            <div class="palette-hex-display" id="paletteBaseHex">#10b981</div>
+                            <p style="color: #a1a1aa;">Choose your base color and select a harmony scheme</p>
+                        </div>
+                    </div>
+
+                    <div class="palette-scheme-buttons">
+                        <button class="palette-scheme-btn active" data-scheme="complementary">Complementary</button>
+                        <button class="palette-scheme-btn" data-scheme="analogous">Analogous</button>
+                        <button class="palette-scheme-btn" data-scheme="triadic">Triadic</button>
+                        <button class="palette-scheme-btn" data-scheme="monochrome">Monochrome</button>
+                        <button class="palette-scheme-btn" data-scheme="tetradic">Tetradic</button>
+                    </div>
+                </div>
+
+                <div class="palette-display" id="paletteDisplay"></div>
+                <button class="palette-export-btn" id="exportPaletteBtn">Export Palette</button>
+            </div>
+
+            <!-- Copy Notification -->
+            <div class="palette-copy-notification" id="copyNotification">
+                ✓ Color copied to clipboard!
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="/Painting Design-Hub/Script/design-hub.js"></script>
+</body>
+
+</html>
