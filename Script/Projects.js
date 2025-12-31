@@ -34,7 +34,7 @@ export const projects = [{
         title: "Residential Exterior Refresh",
         description: "Exterior house painting with weather-resistant finish",
         category: "exterior",
-        image: "https://images.unsplash.com/photo-1570129476589-94f650fcbf81?w=800&h=600&fit=crop",
+        image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop",
         status: "completed",
         imageDescription: "A stunning exterior transformation featuring a rich cream color with contrasting dark trim. The weather-resistant coating ensures long-lasting protection and curb appeal.",
         details: [
@@ -49,7 +49,7 @@ export const projects = [{
         title: "Accent Wall Feature",
         description: "Bold accent wall design for modern bedroom",
         category: "interior",
-        image: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&h=600&fit=crop",
+        image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop",
         status: "completed",
         imageDescription: "Striking deep blue accent wall creating visual interest in a contemporary bedroom. The bold color choice complements light furnishings beautifully.",
         details: [
