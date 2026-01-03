@@ -58,7 +58,7 @@ document.getElementById("calculateBtn").addEventListener("click", () => {
     const wallArea = 2 * (length + width) * height;
     const totalArea = wallArea * coats;
     const paintNeeded = (totalArea / 10).toFixed(2);
-    const estimatedCost = (paintNeeded * 130).toFixed(2);
+    const estimatedCost = (paintNeeded * 120).toFixed(2);
     const duration = Math.ceil(totalArea / 20);
 
     document.getElementById("wallArea").textContent = `${wallArea.toFixed(2)} m²`;
