@@ -1,4 +1,3 @@
-// ============ PROJECTS DATA ============
 export const projects = [{
         id: 1,
         title: "Modern Living Room Transformation",
@@ -91,7 +90,6 @@ export const projects = [{
     },
 ];
 
-// ============ TEAM DATA ============
 export const data = {
     team: [{
             name: "Vancy",
@@ -174,7 +172,6 @@ export const data = {
     ],
 };
 
-// Export all data together
 export default {
     projects,
     data,

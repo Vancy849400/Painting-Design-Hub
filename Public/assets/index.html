@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional house painting services in Zambia — interior, exterior, color consultation, and specialty finishes.">
+    <meta name="description" content="Professional house painting services in Zambia – interior, exterior, color consultation, and specialty finishes.">
     <title>Home Painting</title>
     <link rel="stylesheet" href="../Style/style.css">
 </head>
@@ -31,10 +31,24 @@
                 <li><a href="design-hub.html">Tools</a></li>
                 <li><a href="#faq">FAQ</a></li>
             </ul>
-            <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
-    🌙
-</button>
+            <!-- Add this to the nav-container in navbar, after the navigation links and before the theme toggle -->
 
+            <div id="authButtons" class="auth-buttons">
+                <button class="auth-nav-btn secondary" onclick="openAuthModal('signInModal')">
+        Sign In
+    </button>
+                <button class="auth-nav-btn primary" onclick="openAuthModal('signUpModal')">
+        Sign Up
+    </button>
+            </div>
+
+            <!-- User Profile Button (shown when logged in) -->
+            <button id="userProfileBtn" class="user-profile-btn" style="display: none;">
+    <span id="profileInitials">JD</span>
+</button>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+                🌙
+            </button>
         </div>
     </nav>
 
@@ -214,7 +228,156 @@
         </div>
     </footer>
 
-    <!-- Corrected script path -->
+    <!-- Authentication Modals -->
+
+    <!-- Sign In Modal -->
+    <div id="signInModal" class="auth-modal">
+        <div class="auth-overlay" onclick="closeAuthModal('signInModal')"></div>
+        <div class="auth-modal-content">
+            <button class="auth-close-btn" onclick="closeAuthModal('signInModal')">✕</button>
+
+            <div class="auth-header">
+                <h2>Welcome Back</h2>
+                <p>Sign in to your account</p>
+            </div>
+
+            <form id="signInForm" class="auth-form">
+                <div class="form-group">
+                    <label for="signInEmail">Email Address</label>
+                    <input type="email" id="signInEmail" name="email" placeholder="you@example.com" required>
+                    <span class="error-message" id="signInEmailError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="signInPassword">Password</label>
+                    <input type="password" id="signInPassword" name="password" placeholder="••••••••" required>
+                    <span class="error-message" id="signInPasswordError"></span>
+                </div>
+
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="rememberMe" name="rememberMe">
+                    <label for="rememberMe">Remember me</label>
+                </div>
+
+                <button type="submit" class="auth-button primary">Sign In</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Don't have an account?
+                    <a href="#" onclick="switchAuthModal('signUpModal')">Sign up</a>
+                </p>
+                <p><a href="#" onclick="openAuthModal('forgotPasswordModal')">Forgot password?</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signUpModal" class="auth-modal">
+        <div class="auth-overlay" onclick="closeAuthModal('signUpModal')"></div>
+        <div class="auth-modal-content">
+            <button class="auth-close-btn" onclick="closeAuthModal('signUpModal')">✕</button>
+
+            <div class="auth-header">
+                <h2>Create Account</h2>
+                <p>Join us today</p>
+            </div>
+
+            <form id="signUpForm" class="auth-form">
+                <div class="form-group">
+                    <label for="signUpFullName">Full Name</label>
+                    <input type="text" id="signUpFullName" name="fullName" placeholder="John Doe" required>
+                    <span class="error-message" id="signUpFullNameError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="signUpEmail">Email Address</label>
+                    <input type="email" id="signUpEmail" name="email" placeholder="you@example.com" required>
+                    <span class="error-message" id="signUpEmailError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="signUpPhone">Phone Number</label>
+                    <input type="tel" id="signUpPhone" name="phone" placeholder="+260 9XX XXX XXX" required>
+                    <span class="error-message" id="signUpPhoneError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="signUpPassword">Password</label>
+                    <input type="password" id="signUpPassword" name="password" placeholder="••••••••" required>
+                    <span class="error-message" id="signUpPasswordError"></span>
+                    <div class="password-strength" id="passwordStrength"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="signUpConfirmPassword">Confirm Password</label>
+                    <input type="password" id="signUpConfirmPassword" name="confirmPassword" placeholder="••••••••" required>
+                    <span class="error-message" id="signUpConfirmPasswordError"></span>
+                </div>
+
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                    <label for="agreeTerms">I agree to the Terms of Service and Privacy Policy</label>
+                    <span class="error-message" id="agreeTermsError"></span>
+                </div>
+
+                <button type="submit" class="auth-button primary">Create Account</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Already have an account?
+                    <a href="#" onclick="switchAuthModal('signInModal')">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" class="auth-modal">
+        <div class="auth-overlay" onclick="closeAuthModal('forgotPasswordModal')"></div>
+        <div class="auth-modal-content">
+            <button class="auth-close-btn" onclick="closeAuthModal('forgotPasswordModal')">✕</button>
+
+            <div class="auth-header">
+                <h2>Forgot Password?</h2>
+                <p>We'll help you reset it</p>
+            </div>
+
+            <form id="forgotPasswordForm" class="auth-form">
+                <div class="form-group">
+                    <label for="forgotEmail">Email Address</label>
+                    <input type="email" id="forgotEmail" name="email" placeholder="you@example.com" required>
+                    <span class="error-message" id="forgotEmailError"></span>
+                </div>
+
+                <p class="form-info">We'll send you an email with instructions to reset your password.</p>
+
+                <button type="submit" class="auth-button primary">Send Reset Link</button>
+            </form>
+
+            <div class="auth-footer">
+                <p><a href="#" onclick="switchAuthModal('signInModal')">Back to Sign In</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Profile Dropdown -->
+    <div id="userProfileDropdown" class="user-profile-dropdown" style="display: none;">
+        <div class="user-profile-header">
+            <div class="user-avatar" id="userAvatar">JD</div>
+            <div class="user-info">
+                <p class="user-name" id="userName">John Doe</p>
+                <p class="user-email" id="userEmail">john@example.com</p>
+            </div>
+        </div>
+        <div class="profile-menu">
+            <a href="#" class="profile-menu-item">👤 My Profile</a>
+            <a href="#" class="profile-menu-item">⚙️ Settings</a>
+            <a href="#" class="profile-menu-item">📋 My Projects</a>
+            <hr>
+            <button onclick="logoutUser()" class="profile-menu-item logout">🚪 Logout</button>
+        </div>
+    </div>
+
     <script type="module" src="/Painting Design-Hub/Script/index.js"></script>
 </body>
 
