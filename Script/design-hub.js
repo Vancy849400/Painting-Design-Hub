@@ -59,12 +59,10 @@ document.getElementById("calculateBtn").addEventListener("click", () => {
     const totalArea = wallArea * coats;
     const paintNeeded = (totalArea / 10).toFixed(2);
     const estimatedCost = (paintNeeded * 120).toFixed(2);
-    const duration = Math.ceil(totalArea / 20);
 
     document.getElementById("wallArea").textContent = `${wallArea.toFixed(2)} m²`;
     document.getElementById("paintNeeded").textContent = `${paintNeeded} liters`;
     document.getElementById("estimatedCost").textContent = `ZMW ${estimatedCost}`;
-    document.getElementById("duration").textContent = `${duration} days`;
 });
 
 // ============ PALETTE GENERATOR UTILITIES ============
@@ -282,3 +280,28 @@ generatePalette(
     document.getElementById("paletteBaseColor").value,
     currentScheme
 );
+
+// =========================
+// THEME TOGGLER
+// =========================
+const toggleBtn = document.getElementById("themeToggle");
+const root = document.documentElement;
+
+// Load saved theme
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+    root.setAttribute("data-theme", savedTheme);
+    if (toggleBtn) toggleBtn.textContent = savedTheme === "dark" ? "☀️" : "🌙";
+}
+
+// Add event listener properly
+if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+        const isDark = root.getAttribute("data-theme") === "dark";
+        const newTheme = isDark ? "light" : "dark";
+
+        root.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+        toggleBtn.textContent = newTheme === "dark" ? "☀️" : "🌙";
+    });
+}
