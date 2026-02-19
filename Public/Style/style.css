@@ -1312,7 +1312,6 @@ nav a:hover::after {
 
 .project-card:hover {
     transform: translateY(-15px);
-    box-shadow: 0 30px 60px rgba(16, 185, 129, 0.3);
 }
 
 .project-image {

@@ -145,30 +145,6 @@ export const data = {
             rating: 5,
             verified: true,
         },
-        {
-            author: "Michael Banda",
-            role: "Homeowner",
-            avatar: "👨",
-            text: "The exterior painting exceeded my expectations. The finish is flawless and the crew was courteous throughout.",
-            rating: 5,
-            verified: true,
-        },
-        {
-            author: "Lisa Johnson",
-            role: "Interior Designer",
-            avatar: "👩",
-            text: "I recommend Vancy to all my clients. Exceptional color coordination and pristine execution every time.",
-            rating: 5,
-            verified: true,
-        },
-        {
-            author: "Samuel Kaunda",
-            role: "Homeowner",
-            avatar: "👨",
-            text: "Best decision hiring them for our home renovation. The attention to detail is remarkable!",
-            rating: 5,
-            verified: true,
-        },
     ],
 };
 

@@ -6,7 +6,6 @@ import { initializeNavigation } from "./modules/navigation.js";
 import { initializeFAQ } from "./modules/faq.js";
 import { initializeThemeToggler } from "./modules/themeToggler.js";
 import { updateDynamicYear } from "./modules/footer.js";
-import { initializeAuth } from "./modules/auth.js";
 
 // Initialize all modules when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
@@ -18,7 +17,4 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeFAQ();
     initializeThemeToggler();
     updateDynamicYear();
-
-    // Authentication
-    initializeAuth();
 });
